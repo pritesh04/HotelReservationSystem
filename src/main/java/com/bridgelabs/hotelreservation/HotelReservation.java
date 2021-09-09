@@ -123,5 +123,16 @@ public class HotelReservation {
 				+ hotel.get(rate).rating + " with total rates: " + price[rate]);
 		return hotel.get(rate).hotelName;
 	}
+	
+	public void bestRatedHotel(){
+	    ArrayList<Integer> bestRatedHotel = new ArrayList<Integer>();
+
+	        for (int i=0; i<hotel.size() ;i++){
+	            bestRatedHotel.add(hotel.get(i).rating);
+	        }
+	        int n = bestRatedHotel.indexOf(Collections.max(bestRatedHotel));
+	        System.out.println("Best rated Hotel Name :- " + hotel.get(n).hotelName + " Price :- " + price[n]);
+	        
+	    }
 
 }
