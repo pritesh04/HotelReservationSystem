@@ -131,7 +131,8 @@ public class HotelReservation {
 	            bestRatedHotel.add(hotel.get(i).rating);
 	        }
 	        int n = bestRatedHotel.indexOf(Collections.max(bestRatedHotel));
-	        System.out.println("Best rated Hotel Name :- " + hotel.get(n).hotelName + " Price :- " + price[n]);
+	        System.out.println("Best rated Hotel Name :- " + hotel.get(n).hotelName + " Rating :- " + hotel.get(n).rating
+	        		);
 	        
 	    }
 
