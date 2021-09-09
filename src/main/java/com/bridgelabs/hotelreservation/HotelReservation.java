@@ -51,29 +51,29 @@ public class HotelReservation {
 	}
 
 	public void findCheapestHotel(LocalDate dateFirst, LocalDate dateSecond) {
-		ArrayList<LocalDate> dates = new ArrayList<LocalDate>(3);
+		ArrayList<LocalDate> dates = new ArrayList<LocalDate>();
 
-		 dates.add(dateFirst);
-	        long daysInBetween = ChronoUnit.DAYS.between(dateFirst,dateSecond);
+		dates.add(dateFirst);
+		long daysInMid = ChronoUnit.DAYS.between(dateFirst, dateSecond);
 
-	        while (daysInBetween>0){
-	            dates.add(dates.get(dates.size()-1).plusDays(1));
-	            daysInBetween--;
-	        }
+		while (daysInMid > 0) {
+			dates.add(dates.get(dates.size() - 1).plusDays(1));
+			daysInMid--;
+		}
 
-	        Integer[] price ={0,0,0};
-	        for (int i=0; i<dates.size(); i++){
-	            for (int j=0; j<hotel.size(); j++) {
-	                if (dates.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || dates.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
-	                    price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekEndRate;
-	                }
-	                else
-	                    price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekDayRate;
-	            }
-	        }
+		Integer[] price = { 0, 0, 0 };
+		for (int i = 0; i < dates.size(); i++) {
+			for (int j = 0; j < hotel.size(); j++) {
+				if (dates.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY)
+						|| dates.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+					price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekEndRate;
+				} else
+					price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekDayRate;
+			}
+		}
 
-	        int n = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
-	        System.out.println("Cheapest hotel is :- " + hotel.get(n).hotelName + " Price :- "+ price[n]);		
+		Integer rate = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
+		System.out.println("Cheapest hotel is :- " + hotel.get(rate).hotelName + " Price :- " + price[rate]);
 	}
 
 //	public void addHotel(String name, Integer weekDays, Integer ratePerWeekdays, Integer rateForRewardCust,
