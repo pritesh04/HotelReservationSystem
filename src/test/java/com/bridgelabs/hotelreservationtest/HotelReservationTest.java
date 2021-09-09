@@ -39,7 +39,8 @@ public class HotelReservationTest {
 	{
 		  LocalDate date1 = LocalDate.of(2020,9,10);
 	        LocalDate date2 = LocalDate.of(2020,9,11);
-	        hotelReservation.findCheapestHotel(date1,date2);
+	       String name= hotelReservation.findCheapestHotel(date1,date2);
+	       Assert.assertEquals("Lakewood", name);
 	}
 	
 

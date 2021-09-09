@@ -50,7 +50,7 @@ public class HotelReservation {
 
 	}
 
-	public void findCheapestHotel(LocalDate dateFirst, LocalDate dateSecond) {
+	public String findCheapestHotel(LocalDate dateFirst, LocalDate dateSecond) {
 		ArrayList<LocalDate> dates = new ArrayList<LocalDate>();
 
 		dates.add(dateFirst);
@@ -73,7 +73,8 @@ public class HotelReservation {
 		}
 
 		Integer rate = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
-		System.out.println("Cheapest hotel is :- " + hotel.get(rate).hotelName + " Price :- " + price[rate]);
+		
+		return hotel.get(rate).hotelName;
 	}
 
 //	public void addHotel(String name, Integer weekDays, Integer ratePerWeekdays, Integer rateForRewardCust,
