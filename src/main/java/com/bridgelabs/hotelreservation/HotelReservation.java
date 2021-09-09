@@ -50,33 +50,30 @@ public class HotelReservation {
 
 	}
 
-	public void findCheapestHotel(LocalDate first, LocalDate second) {
-		ArrayList<LocalDate> dateArr = new ArrayList<LocalDate>(3);
+	public void findCheapestHotel(LocalDate dateFirst, LocalDate dateSecond) {
+		ArrayList<LocalDate> dates = new ArrayList<LocalDate>(3);
 
-		dateArr.add(first);
-		long NoOFDays = ChronoUnit.DAYS.between(first, second);
+		 dates.add(dateFirst);
+	        long daysInBetween = ChronoUnit.DAYS.between(dateFirst,dateSecond);
 
-		while (NoOFDays > 0) {
-			dateArr.add(dateArr.get(dateArr.size() - 1).plusDays(1));
-			NoOFDays--;
-		}
+	        while (daysInBetween>0){
+	            dates.add(dates.get(dates.size()-1).plusDays(1));
+	            daysInBetween--;
+	        }
 
-		Integer[] price = { 0, 0, 0 };
-		for (int i = 0; i < dateArr.size(); i++) {
-			for (int j = 0; j < hotel.size(); j++) {
+	        Integer[] price ={0,0,0};
+	        for (int i=0; i<dates.size(); i++){
+	            for (int j=0; j<hotel.size(); j++) {
+	                if (dates.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || dates.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+	                    price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekEndRate;
+	                }
+	                else
+	                    price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekDayRate;
+	            }
+	        }
 
-				if (dateArr.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY)
-						|| dateArr.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-					price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekEndRate;
-				} else
-					price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekDayRate;
-			}
-		}
-
-		int rate = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
-		System.out.println("Cheapest hotel is  " + hotel.get(rate).hotelName + " Rate : " + price[rate]);
-
-		
+	        int n = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
+	        System.out.println("Cheapest hotel is :- " + hotel.get(n).hotelName + " Price :- "+ price[n]);		
 	}
 
 //	public void addHotel(String name, Integer weekDays, Integer ratePerWeekdays, Integer rateForRewardCust,
