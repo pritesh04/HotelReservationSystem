@@ -1,7 +1,10 @@
 package com.bridgelabs.hotelreservationtest;
 
+import static org.junit.Assert.assertEquals;
+
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.junit.Assert;
@@ -40,8 +43,20 @@ public class HotelReservationTest {
 		  LocalDate date1 = LocalDate.of(2020,9,10);
 	        LocalDate date2 = LocalDate.of(2020,9,11);
 	       String name= hotelReservation.findCheapestHotel(date1,date2);
-	       Assert.assertEquals("Lakewood", name);
+	        Assert.assertEquals("Lakewood", name);
 	}
+	
+	@Test
+	 public void BestRatingCheapestHotel() {
+	    	DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy");    	
+	    	String firstDate = "11Sep2020";
+	    	String secondDate = "12Sep2020";
+	    	
+	        LocalDate date1 = LocalDate.parse(firstDate,date);
+	        LocalDate date2 = LocalDate.parse(secondDate,date);
+	        String h2 =  hotelReservation.bestRatedHotel(date1,date2);
+	        assertEquals("BridgeWood", h2);
+	    }
 	
 
 }

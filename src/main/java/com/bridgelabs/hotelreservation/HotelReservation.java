@@ -43,6 +43,7 @@ public class HotelReservation {
 
 	public ArrayList<Hotel> hotel = new ArrayList<Hotel>();
 	Hotel obj;
+	Integer[] price = { 0, 0, 0 };
 
 	public void addHotel(String hotelName, Map<CustomerType, Rate> priceOfHotel, int rating) {
 		obj = new Hotel(hotelName, priceOfHotel, rating);
@@ -61,7 +62,6 @@ public class HotelReservation {
 			daysInMid--;
 		}
 
-		Integer[] price = { 0, 0, 0 };
 		for (int i = 0; i < dates.size(); i++) {
 			for (int j = 0; j < hotel.size(); j++) {
 				if (dates.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY)
@@ -73,20 +73,55 @@ public class HotelReservation {
 		}
 
 		Integer rate = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
-		
+
 		return hotel.get(rate).hotelName;
+
 	}
 
-//	public void addHotel(String name, Integer weekDays, Integer ratePerWeekdays, Integer rateForRewardCust,
-//			Integer rateWeekendForRegular, Integer rateWeekendForReward) {
-//		list.add(new HotelReservation(name, weekDays, ratePerWeekdays, rateForRewardCust, rateWeekendForRegular,
-//				rateWeekendForReward));
-//
-//	}
-//
-//	public int size() {
-//		return list.size();
-//
-//	}
+	public String bestRatedHotel(LocalDate first, LocalDate second) {
+		Hotel[] hotelsList = new Hotel[3];
+		ArrayList<Integer> rating = new ArrayList<>();
+		ArrayList<LocalDate> date = new ArrayList<LocalDate>();
+
+		date.add(first);
+		long daysInBetween = ChronoUnit.DAYS.between(first, second);
+
+		while (daysInBetween > 0) {
+			date.add(date.get(date.size() - 1).plusDays(1));
+			daysInBetween--;
+		}
+
+		for (int i = 0; i < date.size(); i++) {
+			for (int j = 0; j < hotel.size(); j++) {
+
+				if (date.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY)
+						|| date.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+					price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekEndRate;
+				} else
+					price[j] += hotel.get(j).priceOfHotel.get(CustomerType.REGULAR).weekDayRate;
+			}
+		}
+
+		for (int i = 0; i < hotel.size(); i++) {
+			for (int j = 0; j < price.length; j++) {
+				if (i != j) {
+					if (price[i].equals(price[j])) {
+						hotelsList[i] = hotel.get(i);
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < hotelsList.length; i++) {
+			if (hotelsList[i] != null) {
+				rating.add(hotel.get(i).rating);
+			}
+		}
+
+		Integer rate = rating.indexOf(Collections.max(rating));
+		System.out.println("Cheapest hotel with best Ratings: " + hotel.get(rate).hotelName + " Ratings: "
+				+ hotel.get(rate).rating + " with total rates: " + price[rate]);
+		return hotel.get(rate).hotelName;
+	}
 
 }
