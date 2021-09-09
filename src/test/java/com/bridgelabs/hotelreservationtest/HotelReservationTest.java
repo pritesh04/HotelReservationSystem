@@ -1,6 +1,7 @@
 package com.bridgelabs.hotelreservationtest;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import org.junit.Assert;
@@ -11,10 +12,10 @@ import com.bridgelabs.hotelreservation.HotelReservation;
 import com.bridgelabs.hotelreservation.Rate;
 
 public class HotelReservationTest {
-
+	HotelReservation hotelReservation = new HotelReservation();
 	@Test
 	public void addHotel_Shouldreturn_SizeOfHotel() {
-		HotelReservation hotelReservation = new HotelReservation();
+		
 
 		HashMap<CustomerType, Rate> lMap = new HashMap<CustomerType, Rate>();
 		lMap.put(CustomerType.REGULAR, new Rate(110, 90));
@@ -33,5 +34,13 @@ public class HotelReservationTest {
 
 		Assert.assertEquals(3, hotelReservation.hotel.size());
 	}
+	@Test
+	public void priceOfCheapestHotel_ShouldGIveNameAndPrice()
+	{
+		  LocalDate date1 = LocalDate.of(2020,9,10);
+	        LocalDate date2 = LocalDate.of(2020,9,11);
+	        hotelReservation.findCheapestHotel(date1,date2);
+	}
+	
 
 }
