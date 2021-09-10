@@ -66,6 +66,14 @@ public class HotelReservationTest {
 	    	hotelReservation.bestRatedHotel(date1,date2);
 	    	
 	    }
+	 
+	 @Test
+	    public void givenDateRange_ShouldReturnCheapestBesttRatedHotelForRewardedCustomer() {
+	    	DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy");    	
+	    	LocalDate date1 = LocalDate.of(2020,9,11);
+	    	LocalDate date2 = LocalDate.of(2020,9,12);
+	        hotelReservation.cheapestBestHotelRewarded(date1,date2);
+	    }
 	
 
 }

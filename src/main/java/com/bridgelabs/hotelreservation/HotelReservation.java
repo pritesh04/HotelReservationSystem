@@ -135,5 +135,60 @@ public class HotelReservation {
 	        		);
 	        
 	    }
+	
+	 public void cheapestBestHotelRewarded(LocalDate first, LocalDate second) {
+	    	Hotel[] hotelsReward = new Hotel[3];
+	    	ArrayList<Integer> rating = new ArrayList<>();
+	        ArrayList<LocalDate> date = new ArrayList<LocalDate>();
+
+	        date.add(first);
+	        long noOFDays = ChronoUnit.DAYS.between(first,second);
+
+	        while (noOFDays>0){
+	        	date.add(date.get(date.size()-1).plusDays(1));
+	            noOFDays--;
+	        }
+	                
+	        Object[] priceRewarded;
+			for (Integer i=0; i<date.size(); i++){
+	            for (Integer j=0; j<hotel.size(); j++) {
+
+	                if (date.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+	                	priceRewarded[j] += hotel.get(j).priceOfHotel.get(CustomerType.REWARDED).weekEndRate;
+	                }
+	                else
+	                	priceRewarded[j] += hotel.get(j).priceOfHotel.get(CustomerType.REWARDED).weekDayRate;
+	            }
+	        }
+	        int rate = Arrays.asList(priceRewarded).indexOf(Collections.min(Arrays.asList(priceRewarded)));
+	       
+	    	
+	    	for(int i=0; i<hotel.size(); i++) {
+	    		for(int j=0; j<priceRewarded.length; j++) {
+	    			if(i != j) {   				
+	    				if(priceRewarded[i].equals(rate)) {
+	    					hotelsReward[i] = hotel.get(i);
+	    				}
+	    			}
+	    		}
+	    	}
+	    	
+	       for(int i=0; i<hotelsReward.length; i++) {
+	    	   if(hotelsReward[i] != null) {
+	    		  rating.add(hotel.get(i).rating);
+	    	   }
+	       }
+	       
+	       if(hotelsReward[0] == null && hotelsReward[0] == null && hotelsReward[0] == null) {
+	    	   int n = rate;
+	    	   System.out.println("Cheapest hotel with best Ratings for Rewarded Customer : " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ "  Rates: " +priceRewarded[n]);
+	       }
+	       else {
+	           int n = rating.indexOf(Collections.max(rating));
+	           System.out.println("Cheapest hotel with best Ratings for Rewarded Customer: " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ " Ratess: " +priceRewarded[n]);
+	       }
+
+	       
+	    }
 
 }

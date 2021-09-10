@@ -5,7 +5,7 @@ import java.util.Map;
 public class Hotel {
 	String hotelName;
 	Map<CustomerType, Rate> priceOfHotel;
-	int rating;
+	Integer rating;
 
 	public Hotel(String hotelName, Map<CustomerType,Rate> priceOfHotel, int rating){
         this.hotelName = hotelName;
