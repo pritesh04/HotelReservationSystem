@@ -190,5 +190,16 @@ public class HotelReservation {
 
 	       
 	    }
+	 public boolean validateDate(String d1){
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
+	        dateFormat.setLenient(false);
+	        try {
+	            dateFormat.parse(d1.trim());
+	        }
+	        catch (ParseException pe) {
+	            return false;
+	        }
+	        return true;
+	    }
 
 }

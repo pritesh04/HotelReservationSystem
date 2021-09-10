@@ -74,6 +74,24 @@ public class HotelReservationTest {
 	    	LocalDate date2 = LocalDate.of(2020,9,12);
 	        hotelReservation.cheapestBestHotelRewarded(date1,date2);
 	    }
+	 
+	 @Test
+	    public void givenDate_SHouldReturnbestRatedCheapestHotelForRewarded() throws HotelsException {
+	    	String date1 = "2020-09-11";
+	    	String date2 = "2020-09-12";
+	    	
+	    	try {
+	    		DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        	LocalDate d1 = LocalDate.parse(date1,date);
+	        	LocalDate d2 = LocalDate.parse(date2,date);
+	        	hotelReservation.cheapestBestHotelRewarded(d1,d2);
+	    	}
+	    	catch (Exception e) {
+	    		throw new HotelsException("Invalid date");
+	    	}
+
+	        
+	    }
 	
 
 }
