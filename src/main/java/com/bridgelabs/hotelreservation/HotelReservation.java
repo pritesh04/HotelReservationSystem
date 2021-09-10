@@ -149,24 +149,24 @@ public class HotelReservation {
 	            noOFDays--;
 	        }
 	                
-	        Object[] priceRewarded;
+	        Integer[] amountGiven = null;
 			for (Integer i=0; i<date.size(); i++){
 	            for (Integer j=0; j<hotel.size(); j++) {
 
 	                if (date.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
-	                	priceRewarded[j] += hotel.get(j).priceOfHotel.get(CustomerType.REWARDED).weekEndRate;
+	                	amountGiven[i] += hotel.get(j).priceOfHotel.get(CustomerType.REWARDED).weekEndRate;
 	                }
 	                else
-	                	priceRewarded[j] += hotel.get(j).priceOfHotel.get(CustomerType.REWARDED).weekDayRate;
+	                	amountGiven[j] += hotel.get(j).priceOfHotel.get(CustomerType.REWARDED).weekDayRate;
 	            }
 	        }
-	        int rate = Arrays.asList(priceRewarded).indexOf(Collections.min(Arrays.asList(priceRewarded)));
+	        int rate = Arrays.asList(amountGiven).indexOf(Collections.min(Arrays.asList(amountGiven)));
 	       
 	    	
 	    	for(int i=0; i<hotel.size(); i++) {
-	    		for(int j=0; j<priceRewarded.length; j++) {
+	    		for(int j=0; j<amountGiven.length; j++) {
 	    			if(i != j) {   				
-	    				if(priceRewarded[i].equals(rate)) {
+	    				if(amountGiven[i].equals(rate)) {
 	    					hotelsReward[i] = hotel.get(i);
 	    				}
 	    			}
@@ -181,11 +181,11 @@ public class HotelReservation {
 	       
 	       if(hotelsReward[0] == null && hotelsReward[0] == null && hotelsReward[0] == null) {
 	    	   int n = rate;
-	    	   System.out.println("Cheapest hotel with best Ratings for Rewarded Customer : " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ "  Rates: " +priceRewarded[n]);
+	    	   System.out.println("Cheapest hotel with best Ratings for Rewarded Customer : " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ "  Rates: " +amountGiven[n]);
 	       }
 	       else {
 	           int n = rating.indexOf(Collections.max(rating));
-	           System.out.println("Cheapest hotel with best Ratings for Rewarded Customer: " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ " Ratess: " +priceRewarded[n]);
+	           System.out.println("Cheapest hotel with best Ratings for Rewarded Customer: " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ " Ratess: " +amountGiven[n]);
 	       }
 
 	       
